@@ -19,31 +19,13 @@ namespace TellDontAskKata.Main.UseCase
 
         public void Run(SellItemsRequest request)
         {
-            var order = new Order
-            {
-                Status = OrderStatus.Created,
-                Items = new TaxOrderItems(),
-                Currency = "EUR",
-                Total = 0m,
-                Tax = 0m
-            };
-
-            foreach(var itemRequest in request.Requests){
-                var product = _productCatalog.GetByName(itemRequest.ProductName);
-
-                if (product == null)
-                {
-                    throw new UnknownProductException();
-                }
-                else
-                {
-                    var orderItem = new OrderItem(product, itemRequest.Quantity);
-                    order.Items.Add(orderItem);
-                    order.Total = order.Items.GetTotal;
-                    order.Tax = order.Items.GetTax;
-                }
-            }
-
+            var order = new Order(
+                OrderStatus.Created,
+                new TaxOrderItems(),
+                "EUR",
+                0m,
+                0m,
+                request);
             _orderRepository.Save(order);
         }
     }
