@@ -21,4 +21,8 @@ public class TaxOrderItems
         => this.Items;
 
     public int Count => this.Items.Count;
+    
+    public decimal GetTotal => this.Total;
+    
+    public decimal GetTax => this.Tax;
 }

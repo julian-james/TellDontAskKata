@@ -39,6 +39,8 @@ namespace TellDontAskKata.Main.UseCase
                 {
                     var orderItem = new OrderItem(product, itemRequest.Quantity);
                     order.Items.Add(orderItem);
+                    order.Total = order.Items.GetTotal;
+                    order.Tax = order.Items.GetTax;
                 }
             }
 
